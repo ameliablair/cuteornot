@@ -7,6 +7,9 @@ gem 'rails', '4.0.3'
 
 gem "paperclip", "~> 4.1"
 
+
+gem "twitter-bootstrap-rails"
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 

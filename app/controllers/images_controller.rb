@@ -5,25 +5,18 @@ class ImagesController < ApplicationController
   # GET /images.json
   def index
     @images = Image.all
+
   end
 
   # GET /images/1
   # GET /images/1.json
   def show
+
   end
 
   # GET /images/new
-  def new
-    @image = Image.new
-  end
-
-  # GET /images/1/edit
-  def edit
-  end
-
-  # POST /images
-  # POST /images.json
-  def create
+  
+    def create
     @image = Image.new(image_params)
 
     respond_to do |format|
@@ -36,6 +29,31 @@ class ImagesController < ApplicationController
       end
     end
   end
+
+def rate
+    @image = Image.find(params[:id])
+    @container = "image"+@image.id.to_s
+
+    @image.rating_score += params[:rating].to_i
+    @image.ratings += 1
+    @image.save
+
+    respond_to do |format|
+        format.js
+    end
+
+end
+  def new
+    @image = Image.new
+  end
+
+  # GET /images/1/edit
+  def edit
+  end
+
+  # POST /images
+  # POST /images.json
+
 
   # PATCH/PUT /images/1
   # PATCH/PUT /images/1.json
@@ -69,6 +87,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params[:image]
+      params.required(:image).permit(:image_attr,:rating_score)
     end
 end
